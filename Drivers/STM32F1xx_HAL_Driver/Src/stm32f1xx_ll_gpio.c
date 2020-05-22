@@ -192,8 +192,11 @@ ErrorStatus LL_GPIO_Init(GPIO_TypeDef *GPIOx, LL_GPIO_InitTypeDef *GPIO_InitStru
       /* Pin Mode configuration */
       LL_GPIO_SetPinMode(GPIOx, currentpin, GPIO_InitStruct->Mode);
 
-      /* Pull-up Pull-down resistor configuration*/
-      LL_GPIO_SetPinPull(GPIOx, currentpin, GPIO_InitStruct->Pull);
+      /* Pull-up Pull-down resistor configuration - ONLY FOR INPUTS (STM bug fix) */
+      if (GPIO_InitStruct->Mode == LL_GPIO_MODE_INPUT)
+      {
+          LL_GPIO_SetPinPull(GPIOx, currentpin, GPIO_InitStruct->Pull);
+      }
 
       if ((GPIO_InitStruct->Mode == LL_GPIO_MODE_OUTPUT) || (GPIO_InitStruct->Mode == LL_GPIO_MODE_ALTERNATE))
       {
