@@ -27,6 +27,10 @@ namespace encoderEmuTool {
 
     public partial class ui : Form {
         private parser myParser;
+        private UInt32 updateInterval;
+        private UInt32 testFreq_mHz;
+        private UInt32 testAmp;
+        private UInt32 testTime;
 
         public ui()
         {
@@ -78,6 +82,7 @@ namespace encoderEmuTool {
                     btnConnect.Text = "Disconnect";
                     gbUsbComm.Enabled = false;
                     gbSpeed.Enabled = true;
+                    gbSineTest.Enabled = true;
 //                    this.deviceConnected = true;
 //                    this.OpenDataStream();
 //                    Thread.Sleep(2000); /* Add delay to give enough time for the dongle to be in CONNECTED state */
@@ -93,10 +98,52 @@ namespace encoderEmuTool {
                 btnConnect.Text = "Connect";
                 gbUsbComm.Enabled = true;
                 gbSpeed.Enabled = false;
+                gbSineTest.Enabled = false;
                 this.myParser.myDongle.Disconnect();
 //                this.deviceConnected = false;
 //                this.CloseDataStream();
             }
+        }
+
+        private void btnTestStart_Click(object sender, EventArgs e)
+        {
+            if(btnTestStart.Text == "Start")
+            {
+                try
+                {
+                    this.updateInterval = Convert.ToUInt32(tbxUpdateInterval.Text);
+                    this.testAmp = Convert.ToUInt32(tbxAmplitude.Text);
+                    this.testFreq_mHz = Convert.ToUInt32(tbxFreq.Text);
+                    this.testTime = 0;
+                    tmrUpdate.Interval = (int)(this.updateInterval);
+                    tmrUpdate.Enabled = true;
+                    btnTestStart.Text = "Stop";
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+            } else
+            {
+                try
+                {
+                    tmrUpdate.Enabled = false;
+                    btnTestStart.Text = "Start";
+                } catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+            }
+        }
+
+        private void tmrUpdate_Tick(object sender, EventArgs e)
+        {
+            double dblVal = Math.Sin((6.283185 * ((double)this.testFreq_mHz / 1000.0) * ((double)this.testTime) / 1000.0));
+            dblVal = dblVal * ((double)this.testAmp);
+            this.testTime += this.updateInterval;
+            Int32 newRate = Convert.ToInt32(dblVal);
+            newRate = (newRate * Convert.ToInt32(tbxCPR.Text)) / 60;
+            this.myParser.UpdateRate(newRate);
         }
     }
 

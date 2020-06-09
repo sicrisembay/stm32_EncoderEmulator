@@ -26,6 +26,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.gbUsbComm = new System.Windows.Forms.GroupBox();
             this.lblSerialNumber = new System.Windows.Forms.Label();
             this.btnRefresh = new System.Windows.Forms.Button();
@@ -38,8 +39,21 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.tbxCPR = new System.Windows.Forms.TextBox();
+            this.gbSineTest = new System.Windows.Forms.GroupBox();
+            this.btnTestStart = new System.Windows.Forms.Button();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.tbxUpdateInterval = new System.Windows.Forms.TextBox();
+            this.tbxFreq = new System.Windows.Forms.TextBox();
+            this.tbxAmplitude = new System.Windows.Forms.TextBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.tmrUpdate = new System.Windows.Forms.Timer(this.components);
             this.gbUsbComm.SuspendLayout();
             this.gbSpeed.SuspendLayout();
+            this.gbSineTest.SuspendLayout();
             this.SuspendLayout();
             // 
             // gbUsbComm
@@ -91,7 +105,7 @@
             // 
             // btnUpdate
             // 
-            this.btnUpdate.Location = new System.Drawing.Point(29, 94);
+            this.btnUpdate.Location = new System.Drawing.Point(49, 94);
             this.btnUpdate.Name = "btnUpdate";
             this.btnUpdate.Size = new System.Drawing.Size(142, 50);
             this.btnUpdate.TabIndex = 7;
@@ -123,7 +137,7 @@
             this.gbSpeed.Size = new System.Drawing.Size(258, 159);
             this.gbSpeed.TabIndex = 9;
             this.gbSpeed.TabStop = false;
-            this.gbSpeed.Text = "Speed Configuration";
+            this.gbSpeed.Text = "Manual Speed Configuration";
             // 
             // label2
             // 
@@ -160,11 +174,125 @@
             this.tbxCPR.TabIndex = 6;
             this.tbxCPR.Text = "100";
             // 
+            // gbSineTest
+            // 
+            this.gbSineTest.Controls.Add(this.btnTestStart);
+            this.gbSineTest.Controls.Add(this.label8);
+            this.gbSineTest.Controls.Add(this.label6);
+            this.gbSineTest.Controls.Add(this.label5);
+            this.gbSineTest.Controls.Add(this.tbxUpdateInterval);
+            this.gbSineTest.Controls.Add(this.tbxFreq);
+            this.gbSineTest.Controls.Add(this.tbxAmplitude);
+            this.gbSineTest.Controls.Add(this.label9);
+            this.gbSineTest.Controls.Add(this.label7);
+            this.gbSineTest.Controls.Add(this.label4);
+            this.gbSineTest.Enabled = false;
+            this.gbSineTest.Location = new System.Drawing.Point(12, 311);
+            this.gbSineTest.Name = "gbSineTest";
+            this.gbSineTest.Size = new System.Drawing.Size(257, 166);
+            this.gbSineTest.TabIndex = 10;
+            this.gbSineTest.TabStop = false;
+            this.gbSineTest.Text = "Sinusoidal Speed Test";
+            // 
+            // btnTestStart
+            // 
+            this.btnTestStart.Location = new System.Drawing.Point(46, 114);
+            this.btnTestStart.Name = "btnTestStart";
+            this.btnTestStart.Size = new System.Drawing.Size(147, 35);
+            this.btnTestStart.TabIndex = 10;
+            this.btnTestStart.Text = "Start";
+            this.btnTestStart.UseVisualStyleBackColor = true;
+            this.btnTestStart.Click += new System.EventHandler(this.btnTestStart_Click);
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(163, 83);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(20, 13);
+            this.label8.TabIndex = 9;
+            this.label8.Text = "ms";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(163, 57);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(28, 13);
+            this.label6.TabIndex = 9;
+            this.label6.Text = "mHz";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(163, 31);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(31, 13);
+            this.label5.TabIndex = 9;
+            this.label5.Text = "RPM";
+            // 
+            // tbxUpdateInterval
+            // 
+            this.tbxUpdateInterval.Location = new System.Drawing.Point(93, 80);
+            this.tbxUpdateInterval.Name = "tbxUpdateInterval";
+            this.tbxUpdateInterval.Size = new System.Drawing.Size(64, 20);
+            this.tbxUpdateInterval.TabIndex = 6;
+            this.tbxUpdateInterval.Text = "10";
+            // 
+            // tbxFreq
+            // 
+            this.tbxFreq.Location = new System.Drawing.Point(93, 54);
+            this.tbxFreq.Name = "tbxFreq";
+            this.tbxFreq.Size = new System.Drawing.Size(64, 20);
+            this.tbxFreq.TabIndex = 6;
+            this.tbxFreq.Text = "100";
+            // 
+            // tbxAmplitude
+            // 
+            this.tbxAmplitude.Location = new System.Drawing.Point(93, 28);
+            this.tbxAmplitude.Name = "tbxAmplitude";
+            this.tbxAmplitude.Size = new System.Drawing.Size(64, 20);
+            this.tbxAmplitude.TabIndex = 6;
+            this.tbxAmplitude.Text = "8000";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(4, 83);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(83, 13);
+            this.label9.TabIndex = 8;
+            this.label9.Text = "Update Interval:";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(27, 57);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(60, 13);
+            this.label7.TabIndex = 8;
+            this.label7.Text = "Frequency:";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(31, 31);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(56, 13);
+            this.label4.TabIndex = 8;
+            this.label4.Text = "Amplitude:";
+            // 
+            // tmrUpdate
+            // 
+            this.tmrUpdate.Interval = 10;
+            this.tmrUpdate.Tick += new System.EventHandler(this.tmrUpdate_Tick);
+            // 
             // ui
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(285, 324);
+            this.ClientSize = new System.Drawing.Size(285, 489);
+            this.Controls.Add(this.gbSineTest);
             this.Controls.Add(this.gbSpeed);
             this.Controls.Add(this.btnConnect);
             this.Controls.Add(this.gbUsbComm);
@@ -174,6 +302,8 @@
             this.gbUsbComm.PerformLayout();
             this.gbSpeed.ResumeLayout(false);
             this.gbSpeed.PerformLayout();
+            this.gbSineTest.ResumeLayout(false);
+            this.gbSineTest.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -192,6 +322,18 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox tbxCPR;
+        private System.Windows.Forms.GroupBox gbSineTest;
+        private System.Windows.Forms.Button btnTestStart;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.TextBox tbxUpdateInterval;
+        private System.Windows.Forms.TextBox tbxFreq;
+        private System.Windows.Forms.TextBox tbxAmplitude;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Timer tmrUpdate;
     }
 }
 
